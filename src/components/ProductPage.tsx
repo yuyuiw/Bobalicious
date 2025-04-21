@@ -16,8 +16,8 @@ const ProductPage = () => {
                         <img src={boba.imageURL} className = "w-24 h-24 object-cover rounded-lg"></img>
                         <div className = "flex flex-col">
                             <h2 className = "text-[25px] mb-3">{boba.name}</h2>
-                            <h3><span className = "font-semibold text-red-400">price: </span>{boba.price}</h3>
-                            <h3><span className = "font-semibold text-red-400">description: </span>{boba.description}</h3>
+                            <h3><span className = "font-semibold text-red-300">price: </span>{boba.price}</h3>
+                            <h3><span className = "font-semibold text-red-300">description: </span>{boba.description}</h3>
                         </div>
                     </div>
                 </div>
