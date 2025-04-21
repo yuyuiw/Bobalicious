@@ -1,11 +1,12 @@
 import './App.css'
 // import your component here
+import Cart from './components/Cart';
 
 function App() {
 
   return (
     <>
-    {/* put your component here to see it when you run 'npm run dev' */}
+      <Cart />
     </>
   )
 }
