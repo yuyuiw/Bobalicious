@@ -1,13 +1,10 @@
-import './App.css'
-// import your component here
+import React from 'react';
+
+import './App.css';
+import Signup from './components/pages/Signup';
 
 function App() {
-
-  return (
-    <>
-    {/* put your component here to see it when you run 'npm run dev' */}
-    </>
-  )
+  return <Signup />;
 }
 
-export default App
+export default App;
