@@ -1,11 +1,12 @@
 import './App.css'
 // import your component here
+import ClientProfilePage from './components/ClientProfilePage.tsx'
 
 function App() {
 
   return (
     <>
-    {/* put your component here to see it when you run 'npm run dev' */}
+    {<ClientProfilePage/>}
     </>
   )
 }
