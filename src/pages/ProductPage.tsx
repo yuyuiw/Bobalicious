@@ -1,6 +1,6 @@
 import { db } from "../firebase/firebase"
 
-import { getBoba } from "./bobaFuncs";
+import { getBoba } from "../firebase/bobaFuncs";
 const bobaList = await getBoba(db);
 
 
