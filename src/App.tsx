@@ -1,11 +1,10 @@
 import './App.css'
-import ProductPage from "./components/ProductPage"
-// import your component here
-import Cart from './components/Cart';
+import OpeningPage from './components/OpeningPage'
 
 function App() {
   return (
     <>
+    <OpeningPage/>
     </>
   )
 }
