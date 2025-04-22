@@ -7,7 +7,7 @@ const OpeningPage = () => {
         Bobalicious
       </h1>
       <img src={logo} alt="bubble tea logo" className="size-50 border-solid border-4 rounded-full"/>
-      <button >Get Started</button>
+      <button className="bg-[#2C2C2C] text-neutral-100 p-5 rounded-lg">Get Started</button>
     </div>
   )
 }
