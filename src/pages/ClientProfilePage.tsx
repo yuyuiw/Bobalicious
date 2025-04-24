@@ -1,5 +1,5 @@
 import React, {useState } from "react";
-import EditProfilePage from "./EditProfilePage";
+import EditProfilePage from "../pages/EditProfilePage";
 
 const ClientProfilePage: React.FC = () => {
     const [name, setName] = useState("Jane Doe");

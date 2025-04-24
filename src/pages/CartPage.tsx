@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Cart: React.FC = () => {
+const CartPage: React.FC = () => {
   const [checkedOut, setCheckedOut] = useState(false);
 
   return (
@@ -45,4 +45,4 @@ const Cart: React.FC = () => {
   );
 };
 
-export default Cart;
+export default CartPage;
