@@ -1,10 +1,10 @@
-import React from 'react';
-
-import './App.css';
-import Signup from './components/pages/Signup';
+import './App.css'
 
 function App() {
-  return <Signup />;
+  return (
+    <>
+    </>
+  )
 }
 
 export default App;
