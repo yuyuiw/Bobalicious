@@ -1,11 +1,27 @@
 import './App.css'
-import Navbar from './components/Navbar'
+import { BrowserRouter, Routes, Route } from "react-router";
+import OpeningPage from './pages/OpeningPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import ClientHomePage from './pages/ClientHomePage';
+import CartPage from './pages/CartPage';
+import ClientCatalog from './pages/ClientCatalog';
+import ClientProfilePage from './pages/ClientProfilePage';
 
 function App() {
   return (
-    <>
-    <Navbar/>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<OpeningPage />} />
+        <Route path="/login" element={<LoginPage />}/>
+        <Route path="/signup" element={<SignupPage />}/>
+        <Route path="/client-home" element={<ClientHomePage />}/>
+        <Route path="/cart" element={<CartPage />}/>
+        <Route path="/client-catalog" element={<ClientCatalog />}/>
+        <Route path="/profile" element={<ClientProfilePage />}/>
+      </Routes>
+    </BrowserRouter>
+    
   )
 }
 
