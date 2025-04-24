@@ -5,22 +5,34 @@ const Navbar = () => {
   
   const getNavContent = () => {
     switch (location.pathname) {
+      case '/':
+        return null;
       case '/login':
-        return <h1>Log In</h1>;
+        return <h1>Log-In</h1>;
       case '/signup':
-        return <h1>Sign Up</h1>;
+        return <h1>Sign-Up</h1>;
       case '/home':
         return <div></div>;
       default:
-        return <div><a href="/">Home</a> | <a href="/edit-menu">Edit Menu</a> | <a href="/analytics">Analytics</a></div>;
+        return (
+          <div>
+            <a href="/">Home</a> | <a href="/edit-menu">Edit Menu</a> | <a href="/analytics">Analytics</a>
+          </div>
+        );
     }
   };
 
   return(
-    <div>
-      <h1>Boblicious</h1>
-      {getNavContent()}
-    </div>
+    <>
+      {location.pathname !== "/" && (
+        <div className="bg-[#cbe3ba] flex flex-col items-center py-12">
+          <h1 className="text-4xl font-[Lemonada]">Bobalicious</h1>
+          <div className="text-2xl">
+          {getNavContent()}
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 export default Navbar;
