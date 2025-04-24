@@ -1,5 +1,6 @@
 import React, {useState } from "react";
-import EditProfilePage from "./EditProfilePage";
+import EditProfilePage from "../pages/EditProfilePage";
+import Navbar from "../components/ClientNavbar";
 
 const ClientProfilePage: React.FC = () => {
     const [name, setName] = useState("Jane Doe");
@@ -21,21 +22,7 @@ const ClientProfilePage: React.FC = () => {
     }
     return (
     <div className="text-center min-h-screen flex flex-col">
- 
-        {/*pretend navbar UI delete when actual navbar is made*/}
-        <div className="bg-[#CBE3BA]">
-            <h1 className="font-[Lemonada] text-white text-4xl pt-[3vh] font-normal">Bobalicious</h1>
-
-            <div className="flex flex-row justify-center font-normal text-2xl pt-[1vh]">
-                <p className="underline pl-[1vw] pr-[1vw]">Profile</p>
-                <p>|</p>
-                <p className="underline pl-[1vw] pr-[1vw]">Cart</p>
-                <p>|</p>
-                <p className="underline pl-[1vw] pr-[1vw]">Menu</p>
-                <p>|</p>
-                <p className="underline pl-[1vw] pr-[1vw]">Home</p>  
-            </div>
-        </div>
+        <Navbar />
 
         {/*Main page content*/}
         <div className="bg-[#F7DCE3] min-h-screen">

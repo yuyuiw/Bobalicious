@@ -1,13 +1,12 @@
+import ClientNavbar from "../components/ClientNavbar";
+import { useNavigate } from "react-router";
+
 const LoginPage = () => {
+  const navigate = useNavigate();
+  
   return (
-    <div className="w-[100vw] h-[100vh] bg-[#F7DCE3] flex flex-col">
-      {/* Header */}
-      <div className="bg-[#CBE3BA] w-full py-[4vh] text-center">
-        <h1 className="text-[3vw]" style={{ fontFamily: "'Lemonada', cursive" }}>
-          Bobalicious
-        </h1>
-        <p className="text-[1.5vw] font-medium mt-[1vh]">Log-In</p>
-      </div>
+    <div className="flex flex-col h-screen">
+      <ClientNavbar />
 
       {/* Form */}
       <div className="flex-1 flex flex-col justify-center items-center px-[10vw]">
@@ -36,6 +35,15 @@ const LoginPage = () => {
             />
           </div>
 
+          <div className="flex justify-between w-full max-w-[40vw] mt-[2vh] text-[1vw]">
+            <a className="underline text-purple-800 cursor-pointer">
+              Forgot password?
+            </a>
+            <a onClick={() => navigate("/signup")} className="underline text-black cursor-pointer">
+              Sign Up
+            </a>
+          </div>
+
           <button
             type="submit"
             className="bg-black text-white py-[1.5vh] rounded-md text-[1.2vw] hover:bg-gray-800"
@@ -43,15 +51,14 @@ const LoginPage = () => {
             Sign In
           </button>
         </form>
-
-        <div className="flex justify-between w-full max-w-[40vw] mt-[2vh] text-[1vw]">
-          <a href="#" className="underline text-purple-800">
-            Forgot password?
-          </a>
-          <a href="#" className="underline text-black">
-            Sign Up
-          </a>
-        </div>
+        
+        <br></br>
+        <button
+          type="button"
+          onClick={() => navigate("/vendor-home")}
+        >
+          placeholder button to go to vendor view (click me)
+        </button>
       </div>
     </div>
   );
