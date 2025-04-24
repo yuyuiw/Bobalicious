@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/ClientNavbar';
 
 const CartPage: React.FC = () => {
   const [checkedOut, setCheckedOut] = useState(false);

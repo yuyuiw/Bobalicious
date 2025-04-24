@@ -1,6 +1,6 @@
 import React, {useState } from "react";
 import EditProfilePage from "../pages/EditProfilePage";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/ClientNavbar";
 
 const ClientProfilePage: React.FC = () => {
     const [name, setName] = useState("Jane Doe");

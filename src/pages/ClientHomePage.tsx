@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/ClientNavbar";
 
 const ClientHomePage = () => {
   return(

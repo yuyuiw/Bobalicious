@@ -1,15 +1,15 @@
 import { db } from "../firebase/firebase"
 
 import { getBoba } from "../firebase/bobaFuncs";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/ClientNavbar";
 const bobaList = await getBoba(db);
 
 
-const ClientCatalog = () => {
+const ClientCatalogPage = () => {
     return(
         <div>
             <Navbar />
-            <div className = "bg-pink-100 min-h-screen p-4">
+            <div className = "min-h-screen p-4">
             <h1 className = "text-[40px] font-bold italic text-center mt-5">Menu</h1>
             <hr className = "mb-10 mt-2 w-[40%] mx-auto"></hr>
             <div className = "flex flex-col gap-4">
@@ -31,6 +31,6 @@ const ClientCatalog = () => {
     );
 };
 
-export default ClientCatalog;
+export default ClientCatalogPage;
 
 

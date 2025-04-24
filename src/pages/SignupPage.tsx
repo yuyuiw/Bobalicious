@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/ClientNavbar';
 
 const SignupPage: React.FC = () => {
   const [role, setRole] = useState('Vendor');

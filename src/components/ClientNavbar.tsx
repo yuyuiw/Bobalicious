@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 
-const Navbar = () => {
+const ClientNavbar = () => {
   const location = useLocation();
   
   const getNavContent = () => {
@@ -12,6 +12,8 @@ const Navbar = () => {
       case '/signup':
         return <h1>Sign-Up</h1>;
       case '/client-home':
+        return <div></div>;
+      case '/vendor-home':
         return <div></div>;
       default:
         return (
@@ -36,4 +38,4 @@ const Navbar = () => {
     </>
   )
 }
-export default Navbar;
+export default ClientNavbar;
