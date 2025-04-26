@@ -11,9 +11,8 @@ const ProductOverlay = ({ open, boba, handleClose }) => {
 
     return (
         <Modal open={open} onClose={handleClose} className="flex justify-center items-center">
-            <div className="bg-stone-100 min-w-120 max-w-[80%] p-8 text-black rounded-2xl">
+            <div className="bg-stone-100 min-w-120 max-w-[80%] p-8 text-black rounded-md">
                 <div className="flex relative justify-center">
-                    {/** add handleClick */}
                     <CloseIcon 
                         onClick={handleClose}
                         className="absolute left-0 cursor-pointer" />
