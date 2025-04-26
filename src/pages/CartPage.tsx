@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import Navbar from '../components/ClientNavbar';
 
+import { useCart } from '../CartContext';
+
 const CartPage: React.FC = () => {
+  const { cart, clearCart } = useCart();
   const [checkedOut, setCheckedOut] = useState(false);
+
+  // for Isabella
+  // use {cart} to access the entire cart and the items in it are destructured as {boba, quantity}
+  // use clearCart 
 
   return (
     <div>

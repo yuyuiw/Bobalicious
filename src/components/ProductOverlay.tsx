@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
-
+import { useCart } from '../CartContext';
 import { Boba } from '../firebase/types/types';
 
 // Material UI
@@ -16,7 +15,7 @@ interface ProductOverlayProps {
 }
 
 const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
-    const navigate = useNavigate();
+    const { cart, addToCart } = useCart();
     const [quantity, setQuantity] = useState(1);
 
     const resetQty = () => setQuantity(1);
@@ -33,13 +32,8 @@ const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
 
     const handleAddToCart = () => {
         if (!boba) return;
-    
-        navigate('/cart', {
-          state: {
-            bobaOrder: { ...boba, quantity },
-          },
-        });
-
+        addToCart(boba, quantity);
+        console.log(cart);
         handleCloseReset();
       };
 

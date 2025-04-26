@@ -10,8 +10,11 @@ import ClientProfilePage from './pages/ClientProfilePage';
 import VendorHomePage from './pages/VendorHomePage';
 import VendorCatalogPage from './pages/VendorCatalogPage';
 
+import { CartProvider } from './CartContext';
+
 function App() {
   return (
+    <CartProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<OpeningPage />} />
@@ -25,7 +28,7 @@ function App() {
         <Route path="/vendor-catalog" element={<VendorCatalogPage />}/>
       </Routes>
     </BrowserRouter>
-    
+    </CartProvider>
   )
 }
 
