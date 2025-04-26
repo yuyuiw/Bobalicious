@@ -5,35 +5,38 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-const ProductOverlay = () => {
-    // placeholders 
-    const image = "https://tyberrymuch.com/wp-content/uploads/2022/07/taro-milk-tea-recipe-1-735x735.jpg";
-    const price = 5.00;
-    const description = "Purple and sweet";
-    const ingredients = "Taro, milk, ice, boba";
+const ProductOverlay = ({ open, boba, handleClose }) => {
+    if (!boba) return null; 
     const quantity = 1;
-    const open = true;
 
     return (
-        <Modal open={open} className="flex justify-center items-center">
-            <div className="bg-stone-100 w-120 p-8 text-black rounded-2xl">
+        <Modal open={open} onClose={handleClose} className="flex justify-center items-center">
+            <div className="bg-stone-100 min-w-120 max-w-[80%] p-8 text-black rounded-2xl">
                 <div className="flex relative justify-center">
                     {/** add handleClick */}
-                    <CloseIcon className="absolute left-0 m-0 cursor-pointer" />
-                    <h2 className="text-center text-5xl mt-6 font-semibold">Taro Tea</h2>
+                    <CloseIcon 
+                        onClick={handleClose}
+                        className="absolute left-0 cursor-pointer" />
+                    <h2 className="text-center text-5xl mt-8 mb-6">{boba.name}</h2>
                 </div>
 
-                <img src={image} className="my-8 mx-auto w-5/6 h-60" />
+                <img src={boba.imageURL} className="object-cover rounded-lg w-60 h-60 mx-auto" />
 
                 <div className="my-5 mx-4 text-left">
-                    <p className="my-1"><span className="text-red-700 font-bold italic">Price: </span> ${price.toFixed(2)}</p>
-                    <p className="my-1"><span className="text-red-700 font-bold">Description: </span> {description}</p>
-                    <p className="my-1"><span className="text-red-700 font-bold">Ingredients: </span> {ingredients}</p>
+                    <p className="my-1"><span className="text-red-300 font-semibold">price: </span> $ {boba.price}</p>
+                    <p className="my-1"><span className="text-red-300 font-semibold">description: </span> {boba.description}</p>
+                    <p className="my-1"><span className="text-red-300 font-semibold">ingredients: </span>
+                        {boba.ingredients.map((ingredient) => (
+                        <span className = "flex gap-1">
+                            - {ingredient}
+                        </span>
+                        ))}
+                    </p>
                 </div>
 
                 <div className="flex row justify-center items-center mt-8">
                     {/** add handleClicks */}
-                    <p className="m-5"><span className="text-red-700 font-bold">Qty: </span>{quantity}</p>
+                    <p className="m-5"><span className="text-red-300 font-bold">qty: </span>{quantity}</p>
                     <Button sx={{ backgroundColor: '#F7DCE3', color: 'black', margin: '2px' }} variant="contained"><AddIcon /></Button>
                     <Button sx={{ backgroundColor: '#F7DCE3', color: 'black', margin: '2px' }} variant="contained"><RemoveIcon /></Button>
                 </div>
