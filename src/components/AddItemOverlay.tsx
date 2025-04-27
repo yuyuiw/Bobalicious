@@ -133,7 +133,7 @@ export const AddItemOverlay = ({ onClose, onItemAdded }: AddItemOverlayProps) =>
             <p>Added Ingredients</p>
             <ul>
               {newItem.ingredients.map((ingredient, index) => (
-                <div key={index} className="flex">
+                <div key={index} className="flex my-2 ml-5">
                   <button
                     type="button"
                     onClick={() => handleRemoveIngredient(index)}
@@ -151,7 +151,7 @@ export const AddItemOverlay = ({ onClose, onItemAdded }: AddItemOverlayProps) =>
 
         <button
           type="submit"
-          className="bg-[#2C2C2C] mx-auto block text-neutral-100 px-4 py-2 rounded-lg cursor-pointer"
+          className="bg-[#2C2C2C] mx-auto block text-neutral-100 mt-5 px-4 py-2 rounded-lg cursor-pointer"
         >
           Done
         </button>

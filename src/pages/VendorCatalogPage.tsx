@@ -4,11 +4,24 @@ import { useEffect, useState } from "react";
 import { Boba } from "../types/boba";
 import VendorNavbar from "../components/VendorNavbar";
 import AddItemOverlay from "../components/AddItemOverlay";
+import ClientProductOverlay from "../components/ClientProductOverlay";
 import CloseIcon from "@mui/icons-material/Close";
 
 const VendorCatalogPage = () => {
   const [bobaList, setBobaList] = useState<Boba[]>([]);
   const [addItemOverlay, setAddItemOverlay] = useState(false);
+  const [selectedBoba, setBoba] = useState<Boba | null>(null);
+  const [openModal, setOpen] = useState(false);
+  
+  const handleOpenModal = (boba: Boba) => {
+      setBoba(boba);
+      setOpen(true);
+  }
+
+  const handleCloseModal = () => {
+      setBoba(null);
+      setOpen(false);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +58,7 @@ const VendorCatalogPage = () => {
           </i>
         </h1>
 
-        <div className="min-h-screen p-4">
+        <div className="p-4">
           <div>
             <button
               type="button"
@@ -58,9 +71,13 @@ const VendorCatalogPage = () => {
 
           <br />
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mb-5">
             {bobaList.map((boba) => (
-              <div key={boba.id} className="bg-white mx-15 rounded-md shadow-md p-4 gap-4 items-center">
+              <div 
+                key={boba.id} 
+                className="bg-white mx-15 rounded-md shadow-md p-4 gap-4 items-center cursor-pointer"
+                onClick={() => handleOpenModal(boba as Boba)}
+              >
                 <div className="flex flex-row gap-3">
                   <img
                     src={boba.imageURL}
@@ -94,6 +111,11 @@ const VendorCatalogPage = () => {
               </div>
             ))}
           </div>
+          <ClientProductOverlay
+                open={openModal}
+                boba={selectedBoba}
+                handleClose={handleCloseModal}
+            />
         </div>
         </>
       )}
