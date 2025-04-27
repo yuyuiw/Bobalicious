@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from "react";
 import EditProfilePage from "../pages/EditProfilePage";
 import Navbar from "../components/ClientNavbar";
-import { getAuth } from "../firebase/auth;
+import { auth } from "../firebase/firebase";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 
 const ClientProfilePage: React.FC = () => {
@@ -11,7 +11,6 @@ const ClientProfilePage: React.FC = () => {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            const auth = getAuth();
             const user = auth.currentUser;
 
             if(user) {
@@ -44,7 +43,6 @@ const ClientProfilePage: React.FC = () => {
                     setAddress(newAddress);
                     setIsEditing(false);
 
-                    const auth = getAuth();
                     const user = auth.currentUser;
                     const db = getFirestore();
 
