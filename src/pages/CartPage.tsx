@@ -28,7 +28,7 @@ const CartPage: React.FC = () => {
             {cart.map((item, index) => (
               Array.from({ length: item.quantity }).map((_, i) => (
               <div key = {`${index}-${i}`} className="bg-white p-4 shadow-2xl rounded flex flex-row">
-                <img src={item.boba.imageURL} alt={item.boba.name} className="mb-2 w-40 me-10"/>
+                <img src={item.boba.imageURL} alt={item.boba.name} className="w-24 h-24 x me-5"/>
                 <div className="flex flex-col">
                     <h3 className="text-md text-3xl mb-5">{item.boba.name}</h3>
                     <p>
@@ -42,8 +42,9 @@ const CartPage: React.FC = () => {
             ))
           ))}
           </div>
+          <div className="flex justify-center mt-10 mb-10 w-full">
             <button
-              className={`mt-6 w-full py-3 rounded cursor-pointer 
+              className={`mt-6 w-60 h-15 py-3 rounded cursor-pointer mt-20 mb-10
                 ${cart.length === 0 ? "bg-gray-400 text-gray-700 cursor-not-allowed" : "bg-gray-800 text-white"}`}
               disabled={cart.length === 0}
               onClick={() => {
@@ -55,6 +56,7 @@ const CartPage: React.FC = () => {
             >
               Checkout
             </button>
+          </div>
           </div>
         ) : (
           <div className="mt-20 flex flex-col items-center">
