@@ -1,7 +1,7 @@
 import { db } from "../firebase/firebase"
 import { useState } from "react";
 
-import { Boba } from '../firebase/types/types';
+import { Boba } from '../types/boba';
 import { getBoba } from "../firebase/bobaFuncs";
 import Navbar from "../components/ClientNavbar";
 

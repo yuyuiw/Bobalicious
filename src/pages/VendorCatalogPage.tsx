@@ -1,13 +1,13 @@
 import { db } from "../firebase/firebase";
-import { getBoba, deleteBobaItem } from "../firebase/bobaFuncs";
+import { getBoba, deleteBoba } from "../firebase/bobaFuncs";
 import { useEffect, useState } from "react";
-import { BobaItem } from "../types/boba";
+import { Boba } from "../types/boba";
 import VendorNavbar from "../components/VendorNavbar";
 import AddItemOverlay from "../components/AddItemOverlay";
 import CloseIcon from "@mui/icons-material/Close";
 
 const VendorCatalogPage = () => {
-  const [bobaList, setBobaList] = useState<BobaItem[]>([]);
+  const [bobaList, setBobaList] = useState<Boba[]>([]);
   const [addItemOverlay, setAddItemOverlay] = useState(false);
 
   useEffect(() => {
@@ -18,13 +18,13 @@ const VendorCatalogPage = () => {
     fetchData();
   }, []);
 
-  const handleItemAdded = (newItem: BobaItem) => {
+  const handleItemAdded = (newItem: Boba) => {
     setBobaList(prev => [...prev, newItem]);
   };
 
   const handleDeleteItem = async (id: string) => {
     try {
-      await deleteBobaItem(db, id);
+      await deleteBoba(db, id);
       setBobaList(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error("Error deleting item:", error);

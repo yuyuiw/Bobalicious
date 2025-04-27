@@ -1,17 +1,17 @@
 import { db } from "../firebase/firebase";
 import { useState } from "react";
-import { BobaItem } from "../types/boba";
-import { addBobaItem } from "../firebase/bobaFuncs";
+import { Boba } from "../types/boba";
+import { addBoba } from "../firebase/bobaFuncs";
 import CloseIcon from "@mui/icons-material/Close";
 
 
 interface AddItemOverlayProps {
   onClose: () => void;
-  onItemAdded: (newItem: BobaItem) => void;
+  onItemAdded: (newItem: Boba) => void;
 }
 
 export const AddItemOverlay = ({ onClose, onItemAdded }: AddItemOverlayProps) => {
-  const [newItem, setNewItem] = useState<Omit<BobaItem, 'id'>>({
+  const [newItem, setNewItem] = useState<Omit<Boba, 'id'>>({
     name: '',
     imageURL: '',
     price: '',
@@ -44,7 +44,7 @@ export const AddItemOverlay = ({ onClose, onItemAdded }: AddItemOverlayProps) =>
 
   const handleSubmit = async () => {
     try {
-      const addedItem = await addBobaItem(db, newItem);
+      const addedItem = await addBoba(db, newItem);
       onItemAdded(addedItem);
       onClose();
     } catch (error) {

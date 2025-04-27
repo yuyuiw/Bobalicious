@@ -1,8 +1,8 @@
-export interface BobaItem {
-  id?: string;
-  description: string;
-  imageURL: string;
-  ingredients: string[];
-  name: string;
-  price: string;
+export interface Boba{
+    id: string;
+    name: string;
+    imageURL: string;
+    price: string;
+    description: string;
+    ingredients: string[];
 }

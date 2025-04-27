@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useCart } from '../CartContext';
-import { Boba } from '../firebase/types/types';
+import { Boba } from '../types/boba';
 
 // Material UI
 import { Button, Modal } from '@mui/material';
