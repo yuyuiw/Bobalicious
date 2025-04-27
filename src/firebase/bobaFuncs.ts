@@ -2,6 +2,8 @@ import { collection, Firestore, getDocs, addDoc, doc, deleteDoc } from "firebase
 import { BobaItem } from "../types/boba";
 
 export async function getBoba(db: Firestore): Promise<BobaItem[]> {
+    // get all the boba from firebase
+    // return a list of boba objects
     const bobaCol = collection(db, 'boba');
     const userSnapshot = await getDocs(bobaCol);
     const bobaList = userSnapshot.docs.map(doc => ({
@@ -9,9 +11,6 @@ export async function getBoba(db: Firestore): Promise<BobaItem[]> {
         ...doc.data()
       } as BobaItem));
     return bobaList;
-    
-    // get all the boba from firebase
-    // return a list of boba objects
 }
 
 export async function addBobaItem(db: Firestore, item: Omit<BobaItem, 'id'>) {
@@ -33,8 +32,3 @@ export async function deleteBobaItem(db: Firestore, id: string) {
         throw e;
       }
 }
-//getBobaDrink - to specifically get it's price, etc.
-//removeBoba
-
-//The point of this is so that we can use this functions in any page! 
-//Can edit boba, and also just access them more efficiently

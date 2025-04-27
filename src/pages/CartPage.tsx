@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import Navbar from '../components/ClientNavbar';
+import { useNavigate } from "react-router";
+
+import { useCart } from '../CartContext';
 
 const CartPage: React.FC = () => {
+  const { cart, clearCart } = useCart();
   const [checkedOut, setCheckedOut] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -40,7 +45,7 @@ const CartPage: React.FC = () => {
         ) : (
           <div className="mt-20 flex flex-col items-center">
             <h2 className="text-xl mb-6">Thank you for your purchase.</h2>
-            <p className="mt-6 w-full bg-gray-800 text-white py-3 rounded text-center cursor-pointer">
+            <p className="mt-6 w-full bg-gray-800 text-white py-3 rounded text-center cursor-pointer" onClick={() => navigate("/")}>
               Sign Out
             </p>
           </div>

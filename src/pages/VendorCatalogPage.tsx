@@ -35,7 +35,6 @@ const VendorCatalogPage = () => {
   return (
     <div className="flex flex-col">
       <VendorNavbar />
-
       {addItemOverlay && (<AddItemOverlay onClose={() => setAddItemOverlay(false)} onItemAdded={handleItemAdded} />)}
 
       {!addItemOverlay && (
