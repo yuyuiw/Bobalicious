@@ -1,7 +1,7 @@
 import { collection, Firestore, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore";
-import { BobaItem } from "../types/boba";
+import { Boba } from "../types/boba";
 
-export async function getBoba(db: Firestore): Promise<BobaItem[]> {
+export async function getBoba(db: Firestore): Promise<Boba[]> {
     // get all the boba from firebase
     // return a list of boba objects
     const bobaCol = collection(db, 'boba');
@@ -9,21 +9,21 @@ export async function getBoba(db: Firestore): Promise<BobaItem[]> {
     const bobaList = userSnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
-      } as BobaItem));
+      } as Boba));
     return bobaList;
 }
 
-export async function addBobaItem(db: Firestore, item: Omit<BobaItem, 'id'>) {
+export async function addBoba(db: Firestore, item: Omit<Boba, 'id'>) {
     try {
       const docRef = await addDoc(collection(db, 'boba'), item);
-      return { id: docRef.id, ...item } as BobaItem;
+      return { id: docRef.id, ...item } as Boba;
     } catch (e) {
       console.error("Error adding document: ", e);
       throw e;
     }
 }
 
-export async function deleteBobaItem(db: Firestore, id: string) {
+export async function deleteBoba(db: Firestore, id: string) {
     try {
         await deleteDoc(doc(db, 'boba', id));
         console.log("Document deleted with ID: ", id);
