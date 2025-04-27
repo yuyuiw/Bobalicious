@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import Navbar from '../components/ClientNavbar';
 import { useNavigate } from "react-router";
 
+import { useCart } from '../CartContext';
+
 const CartPage: React.FC = () => {
+  const { cart, clearCart } = useCart();
   const [checkedOut, setCheckedOut] = useState(false);
   const navigate = useNavigate();
+
   return (
     <div>
       <Navbar />
