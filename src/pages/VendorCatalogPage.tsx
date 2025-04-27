@@ -2,10 +2,42 @@ import { db } from "../firebase/firebase";
 import { getBoba } from "../firebase/bobaFuncs";
 import CloseIcon from '@mui/icons-material/Close';
 import VendorNavbar from "../components/VendorNavbar";
-
-const bobaList = await getBoba(db);
+import { useState, useEffect } from 'react';
+import { deleteDoc, doc } from 'firebase/firestore';
 
 const VendorCatalogPage = () => {
+  type BobaItem = {
+    id: string;
+    name: string;
+    price: number;
+    description: string;
+    imageURL: string;
+  };
+  
+  const [bobaList, setBobaList] = useState<BobaItem[]>([]);
+
+  useEffect(() => {
+    const fetchBoba = async () => {
+      const boba = await getBoba(db);
+      const mappedBoba = boba.map((doc) => ({
+        id: doc.id,
+        name: doc.name,
+        price: doc.price,
+        description: doc.description,
+        imageURL: doc.imageURL
+      })) as BobaItem[];
+      setBobaList(mappedBoba);
+    };
+    fetchBoba();
+  }, []);
+
+  const handleDelete = async (id: string) => {
+    await deleteDoc(doc(db, "boba", id));
+    setBobaList((prev) => prev.filter((boba) => boba.id !== id));
+  };
+
+  console.log("bobaList", bobaList);
+
   return(
     <div className="flex flex-col">
       <VendorNavbar />
@@ -19,7 +51,7 @@ const VendorCatalogPage = () => {
 
         <div className = "flex flex-col gap-4">
           {bobaList.map((boba) => (
-            <div className = "bg-white mx-15 rounded-md shadow-md p-4 gap-4 items-center">
+            <div key={boba.id} className = "bg-white mx-15 rounded-md shadow-md p-4 gap-4 items-center">
               <div className = "flex flex-row gap-3">
                 <img src={boba.imageURL} className = "w-24 h-24 object-cover rounded-lg"></img>
                 
@@ -27,9 +59,9 @@ const VendorCatalogPage = () => {
                   
                   <div className="flex justify-between w-full">
                     <h2 className = "text-[25px] mb-3">{boba.name}</h2>
-                    <button type="button" className="button-black text-neutral-100 px-1 w-min h-min rounded-lg" ><CloseIcon/></button>
+                    <button type="button" className="button-black text-neutral-100 px-1 w-min h-min rounded-lg cursor-pointer"
+                    onClick={() => handleDelete(boba.id)}><CloseIcon/></button>
                   </div>
-                    
                     <h3><span className = "font-semibold text-red-300">price: </span>{boba.price}</h3>
                     <h3><span className = "font-semibold text-red-300">description: </span>{boba.description}</h3>
                 </div>
