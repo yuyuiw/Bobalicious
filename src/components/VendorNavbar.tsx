@@ -5,7 +5,7 @@ const VendorNavbar = () => {
       <br/>
       <div className="flex justify-center text-2xl w-full">
         <div className="underline flex justify-evenly w-full">
-          <a href="/">Analytics</a><a href="/vendor-catalog">Edit Menu</a><a href="/vendor-home">Home</a>
+          <a href="/vendor-catalog">Edit Menu</a><a href="/vendor-home">Home</a>
         </div>
       </div>
     </div>
