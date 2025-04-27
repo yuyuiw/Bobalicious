@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/ClientNavbar';
 import { useNavigate } from "react-router";
-
 import { useCart } from '../CartContext';
 
 const CartPage: React.FC = () => {
@@ -25,20 +24,35 @@ const CartPage: React.FC = () => {
               </select>
             </div>
 
-            <div className="bg-white p-4 shadow-2xl rounded flex flex-row">
-              <img src="taro.webp" alt="Taro Tea" className="mb-2 w-40 me-10"/>
-              <div className="flex flex-col">
-                  <h3 className="text-md text-3xl mb-5">Taro Tea</h3>
-                  <p>
-                  <text className="text-red-600 font-semibold italic">Price:</text> $3.99
-                  </p>
-                  <p>
-                  <text className="text-red-600 font-semibold italic">Description:</text> Yummy! It’s so good, yummy!
-                  </p>
+          <div className="flex flex-col gap-4">
+            {cart.map((item, index) => (
+              Array.from({ length: item.quantity }).map((_, i) => (
+              <div key = {`${index}-${i}`} className="bg-white p-4 shadow-2xl rounded flex flex-row">
+                <img src={item.boba.imageURL} alt={item.boba.name} className="mb-2 w-40 me-10"/>
+                <div className="flex flex-col">
+                    <h3 className="text-md text-3xl mb-5">{item.boba.name}</h3>
+                    <p>
+                    <text className="text-red-600 font-semibold italic">Price:</text> ${item.boba.price}
+                    </p>
+                    <p>
+                    <text className="text-red-600 font-semibold italic">Description:</text> {item.boba.description}
+                    </p>
+                </div>
               </div>
-            </div>
-
-            <button className="mt-6 w-full bg-gray-800 text-white py-3 rounded cursor-pointer" onClick={() => setCheckedOut(true)}>
+            ))
+          ))}
+          </div>
+            <button
+              className={`mt-6 w-full py-3 rounded cursor-pointer 
+                ${cart.length === 0 ? "bg-gray-400 text-gray-700 cursor-not-allowed" : "bg-gray-800 text-white"}`}
+              disabled={cart.length === 0}
+              onClick={() => {
+                if (cart.length > 0) {
+                  clearCart();
+                  setCheckedOut(true);
+                }
+              }}
+            >
               Checkout
             </button>
           </div>
