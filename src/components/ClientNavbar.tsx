@@ -18,7 +18,7 @@ const ClientNavbar = () => {
       default:
         return (
           <div className="underline flex justify-evenly w-full">
-            <a href="/profile">Profile</a><a href="/cart">Cart</a><a href="/client-catalog">Menu</a><a href="/client-home">Home</a>
+            <a href="/profile">Profile</a><a href="/cart">Cart</a><a href="/client-catalog">Menu</a>
           </div>
         );
     }
@@ -28,7 +28,7 @@ const ClientNavbar = () => {
     <>
       {location.pathname !== "/" && (
         <div className="bg-[#cbe3ba] flex flex-col items-center py-8">
-          <h1 className="text-4xl font-[Lemonada]">Bobalicious</h1>
+          <a href="/client-home" className="text-4xl font-[Lemonada]">Bobalicious</a>
           <br/>
           <div className="flex justify-center text-2xl w-full">
           {getNavContent()}
