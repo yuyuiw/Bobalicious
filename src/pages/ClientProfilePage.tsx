@@ -1,21 +1,58 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import EditProfilePage from "../pages/EditProfilePage";
 import Navbar from "../components/ClientNavbar";
+import { auth } from "../firebase/firebase";
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 
 const ClientProfilePage: React.FC = () => {
-    const [name, setName] = useState("Jane Doe");
-    const [address, setAddress] = useState("123 Pool Lane, College Park");
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
     const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const user = auth.currentUser;
+
+            if(user) {
+                const db = getFirestore();
+                const docRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if(docSnap.exists()) {
+                    const userData = docSnap.data();
+                    setName(userData.name || "");
+
+                    if(userData.address) {
+                        setAddress(userData.address);
+                    }
+
+                }
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     if(isEditing) {
         return (
             <EditProfilePage
                 name={name}
                 address={address}
-                onSave={(newName: string, newAddress: string) => {
+                onSave={async (newName: string, newAddress: string) => {
                     setName(newName);
                     setAddress(newAddress);
                     setIsEditing(false);
+
+                    const user = auth.currentUser;
+                    const db = getFirestore();
+
+                    if(user) {
+                        const userDocRef = doc(db, "users", user.uid);
+                        await updateDoc(userDocRef, {
+                            name: newName,
+                            address: newAddress,
+                        });
+                    }
                 }}
              />
         );

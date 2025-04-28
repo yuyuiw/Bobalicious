@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useCart } from '../CartContext';
-import { Boba } from '../firebase/types/types';
+import { Boba } from '../types/boba';
 
 // Material UI
 import { Button, Modal } from '@mui/material';
@@ -42,13 +42,13 @@ const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
     return (
         <Modal open={open} onClose={handleClose} className="flex justify-center items-center">
             <div className="bg-stone-100 min-w-120 max-w-[80%] p-8 text-black rounded-md">
-                <div className="flex relative justify-center">
+                <div className="flex justify-self-end">
                     <CloseIcon 
                         onClick={handleClose}
-                        className="absolute left-0 cursor-pointer" />
-                    <h2 className="text-center text-5xl mt-8 mb-6">{boba.name}</h2>
+                        className="cursor-pointer" 
+                    />
                 </div>
-
+                <h2 className="flex justify-center text-center text-5xl mb-6">{boba.name}</h2>
                 <img src={boba.imageURL} className="object-cover rounded-lg w-60 h-60 mx-auto" />
 
                 <div className="my-5 mx-4 text-left">
@@ -63,7 +63,7 @@ const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
                     </p>
                 </div>
 
-                <div className="flex row justify-center items-center mt-8">
+                <div className="flex row justify-center items-center">
                     <p className="m-5"><span className="text-red-300 font-bold">qty: </span>{quantity}</p>
                     <Button onClick={increaseQty} sx={{ backgroundColor: '#F7DCE3', color: 'black', margin: '2px' }} variant="contained"><AddIcon /></Button>
                     <Button onClick={decreaseQty} sx={{ backgroundColor: '#F7DCE3', color: 'black', margin: '2px' }} variant="contained"><RemoveIcon /></Button>

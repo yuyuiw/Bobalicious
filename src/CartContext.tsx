@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect,useState } from 'react';
-import { Boba } from './firebase/types/types';
+import { Boba } from './types/boba';
 
 interface CartItem {
     boba: Boba;
