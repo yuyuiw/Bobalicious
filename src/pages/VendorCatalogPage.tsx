@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Boba } from "../types/boba";
 import VendorNavbar from "../components/VendorNavbar";
 import AddItemOverlay from "../components/AddItemOverlay";
-import ClientProductOverlay from "../components/ClientProductOverlay";
+import VendorProductOverlay from "../components/VendorProductOverlay";
 import CloseIcon from "@mui/icons-material/Close";
 
 const VendorCatalogPage = () => {
@@ -111,7 +111,7 @@ const VendorCatalogPage = () => {
               </div>
             ))}
           </div>
-          <ClientProductOverlay
+          <VendorProductOverlay
                 open={openModal}
                 boba={selectedBoba}
                 handleClose={handleCloseModal}
