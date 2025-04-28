@@ -15,7 +15,7 @@ interface ProductOverlayProps {
 }
 
 const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
-    const { cart, addToCart } = useCart();
+    const { addToCart } = useCart();
     const [quantity, setQuantity] = useState(1);
 
     const resetQty = () => setQuantity(1);
@@ -33,8 +33,8 @@ const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
     const handleAddToCart = () => {
         if (!boba) return;
         addToCart(boba, quantity);
-        console.log(cart);
-        handleCloseReset();
+        resetQty();
+        handleClose();
       };
 
     if (!boba) return null; 
@@ -52,11 +52,11 @@ const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
                 <img src={boba.imageURL} className="object-cover rounded-lg w-60 h-60 mx-auto" />
 
                 <div className="my-5 mx-4 text-left">
-                    <p className="my-1"><span className="text-red-300 font-semibold">Price: </span>${boba.price}</p>
-                    <p className="my-1"><span className="text-red-300 font-semibold">Description: </span>{boba.description}</p>
-                    <p className="my-1"><span className="text-red-300 font-semibold">Ingredients: </span>
-                        {boba.ingredients.map((ingredient) => (
-                        <span className = "flex gap-1">
+                    <p className="my-1"><span className="text-red-300 font-semibold">price: </span>${boba.price}</p>
+                    <p className="my-1"><span className="text-red-300 font-semibold">description: </span>{boba.description}</p>
+                    <p className="my-1"><span className="text-red-300 font-semibold">ingredients: </span>
+                        {boba.ingredients.map((ingredient, index) => (
+                        <span key = {index} className = "flex gap-1">
                             - {ingredient}
                         </span>
                         ))}
