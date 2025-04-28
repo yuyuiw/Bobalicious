@@ -34,7 +34,7 @@ const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
         if (!boba) return;
         addToCart(boba, quantity);
         resetQty();
-        handleClose();
+        handleCloseReset();
       };
 
     if (!boba) return null; 
