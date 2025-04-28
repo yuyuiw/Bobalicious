@@ -56,30 +56,28 @@ const VendorCatalogPage = () => {
 
       {!addItemOverlay && (
         <>
-        <h1 className="flex justify-center text-2xl pt-10">
+        <h1 className="flex justify-center text-3xl pt-10">
           <i>
             <b>Edit Menu</b>
           </i>
         </h1>
 
         <div className="p-4">
-          <div>
-            <button
-              type="button"
-              onClick={() => setAddItemOverlay(true)}
-              className="bg-[#2C2C2C] text-neutral-100 px-4 py-2 rounded-lg mx-15 cursor-pointer"
-            >
-              Add Item
-            </button>
-          </div>
-
+          <button
+            type="button"
+            onClick={() => setAddItemOverlay(true)}
+            className="bg-[#2C2C2C] text-neutral-100 px-4 py-2 rounded-lg mx-15 cursor-pointer"
+          >
+            Add Item
+          </button>
+          
           <br />
 
-          <div className="flex flex-col gap-4 mb-5">
+          <div className="flex flex-col items-center gap-4 mb-5">
             {bobaList.map((boba) => (
               <div 
                 key={boba.id} 
-                className="bg-white mx-15 rounded-md shadow-md p-4 gap-4 items-center cursor-pointer"
+                className="bg-white mx-15 rounded-md shadow-md p-4 gap-4 items-center min-w-160 cursor-pointer"
                 onClick={() => handleOpenModal(boba as Boba)}
               >
                 <div className="flex flex-row gap-3">
@@ -101,12 +99,12 @@ const VendorCatalogPage = () => {
                     </div>
 
                     <h3>
-                      <span className="font-semibold text-red-300">price: </span>
+                      <span className="font-semibold text-red-300">Price: </span>
                       {'$' + boba.price}
                     </h3>
                     <h3>
                       <span className="font-semibold text-red-300">
-                        description:{" "}
+                        Description:{" "}
                       </span>
                       {boba.description}
                     </h3>
