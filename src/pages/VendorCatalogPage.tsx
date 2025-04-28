@@ -1,5 +1,6 @@
 import { db } from "../firebase/firebase";
-import { getBoba, deleteBoba } from "../firebase/bobaFuncs";
+import { deleteBoba } from "../firebase/bobaFuncs";
+import { onSnapshot, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Boba } from "../types/boba";
 import VendorNavbar from "../components/VendorNavbar";
@@ -24,11 +25,14 @@ const VendorCatalogPage = () => {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getBoba(db);
+    const listener = onSnapshot(collection(db, "boba"), (snapshot) => {
+      const data: Boba[] = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Boba[];
       setBobaList(data);
-    };
-    fetchData();
+    });
+    return () => listener();
   }, []);
 
   const handleItemAdded = (newItem: Boba) => {
@@ -98,7 +102,7 @@ const VendorCatalogPage = () => {
 
                     <h3>
                       <span className="font-semibold text-red-300">price: </span>
-                      {boba.price}
+                      {'$' + boba.price}
                     </h3>
                     <h3>
                       <span className="font-semibold text-red-300">
