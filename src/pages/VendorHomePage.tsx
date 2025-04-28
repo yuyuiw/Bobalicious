@@ -2,16 +2,37 @@ import { Link } from "react-router";
 import Navbar from "../components/ClientNavbar";
 
 const VendorHomePage = () => {
-  return(
+  return (
     <>
-    <Navbar />
-    {/* Remove these when you're making your own buttons */}
-    <Link to="/">analytics</Link> - there's actually no analytics page yet (this goes to home page)
-    <br/>
-    <Link to="/vendor-catalog">menu</Link> - the client catalog with product overlay must be completed first before vendor catalog can be done
-    <br/>
-    <Link to="/">sign out</Link> - this also goes to home page; handle this as a button to logout
+      <Navbar />
+      <div className="bg-pink-100 min-h-screen p-8">
+        <div className="text-center mb-8">
+          <h2 className="italic text-2xl mb-4">Welcome, Vendor!</h2>
+          <p className="text-lg max-w-3xl mx-auto">
+            Manage your menu, track orders, and serve up smiles. Let’s make every boba drop unforgettable!
+          </p>
+        </div>
+
+        <div className="flex justify-center gap-6">
+          <Link
+            to="/vendor-catalog"
+            className="bg-gray-800 text-white rounded-2xl p-6 w-60 h-85 flex flex-col items-center justify-center text-center shadow-md hover:bg-gray-700 transition"
+          >
+            <div className="font-bold text-lg mb-1">Menu</div>
+            <div className="text-sm">Manage your boba creations</div>
+          </Link>
+
+          <Link
+            to="/"
+            className="bg-gray-800 text-white rounded-2xl p-6 w-60 h-85 flex flex-col items-center justify-center text-center shadow-md hover:bg-gray-700 transition"
+          >
+            <div className="font-bold text-lg mb-1">Sign Out</div>
+            <div className="text-sm">Logout of your account</div>
+          </Link>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
+
 export default VendorHomePage;
