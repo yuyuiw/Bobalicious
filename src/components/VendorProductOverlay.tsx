@@ -1,6 +1,7 @@
 import { Boba } from "../types/boba";
 import { db } from "../firebase/firebase";
 import { useState } from "react";
+import { updateBoba } from "../firebase/bobaFuncs";
 
 // Material UI
 import { Modal } from "@mui/material";
@@ -19,27 +20,52 @@ const VendorProductOverlay = ({
 }: ProductOverlayProps) => {
   if (!boba) return null;
 
-  const handleRemoveIngredient = (index: number) => {
-    setNewItem((prev) => ({
-      ...prev,
-      ingredients: prev.ingredients.filter((_, i) => i !== index),
-    }));
-  };
   const [currentIngredient, setCurrentIngredient] = useState("");
-  const [newItem, setNewItem] = useState<Omit<Boba, "id">>({
-    name: "",
-    imageURL: "",
-    price: "",
-    description: "",
-    ingredients: [],
+  const [updatedItem, setUpdatedItem] = useState<Omit<Boba, "id">>({
+    name: boba.name,
+    price: boba.price,
+    description: boba.description,
+    imageURL: boba.imageURL,
+    ingredients: boba.ingredients,
   });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUpdatedItem((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleAddIngredient = () => {
     if (currentIngredient.trim()) {
-      setNewItem((prev) => ({
+      setUpdatedItem((prev) => ({
         ...prev,
         ingredients: [...prev.ingredients, currentIngredient.trim()],
       }));
       setCurrentIngredient("");
+    }
+  };
+
+  const handleRemoveIngredient = (index: number) => {
+    setUpdatedItem((prev) => ({
+      ...prev,
+      ingredients: prev.ingredients.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleSubmit = async () => {
+    const updatedBoba = {
+      ...boba,
+      name: updatedItem.name,
+      price: updatedItem.price,
+      description: updatedItem.description,
+      imageURL: updatedItem.imageURL,
+      ingredients: updatedItem.ingredients,
+    };
+
+    try {
+      await updateBoba(db, boba.id, updatedBoba); 
+      handleClose(); 
+    } catch (error) {
+      console.error("Error updating item:", error);
     }
   };
 
@@ -53,9 +79,19 @@ const VendorProductOverlay = ({
         <div className="flex justify-self-end">
           <CloseIcon onClick={handleClose} className="cursor-pointer" />
         </div>
-        <h2 className="flex justify-center text-center text-5xl mb-6">
-          {boba.name}
-        </h2>
+
+        <h1 className="text-2xl font-bold text-center mb-4">
+          <span className="text-red-300 font-semibold">Item Name: </span>
+          <input
+            type="Item Name: "
+            className="border border-solid border-neutral-200 rounded-md bg-white p-2 w-1/3"
+            placeholder={boba.name}
+            onChange={handleInputChange}
+            name ="name"
+            value={updatedItem.name}
+          />
+        </h1>
+
         <img
           src={boba.imageURL}
           className="object-cover rounded-lg w-60 h-60 mx-auto"
@@ -68,24 +104,36 @@ const VendorProductOverlay = ({
               type="Price: "
               className="border border-solid border-neutral-200 rounded-md bg-white p-2 w-1/3"
               placeholder={boba.price}
+              name ="price"
+              value={updatedItem.price}
+              onChange={handleInputChange}
             />
           </p>
+
           <p className="my-1">
             <span className="text-red-300 font-semibold">Description: </span>
             <input
               type="Description: "
               className="border border-solid border-neutral-200 rounded-md bg-white p-2 w-1/3"
               placeholder={boba.description}
+              name ="description"
+              value={updatedItem.description}
+              onChange={handleInputChange}
             />
           </p>
+
           <p className="my-1">
             <span className="text-red-300 font-semibold">Image URL: </span>
             <input
               type="Image URL: "
+              name="imageURL"
+              value={updatedItem.imageURL}
               className="border border-solid border-neutral-200 rounded-md bg-white p-2 w-1/3"
               placeholder={boba.imageURL}
+              onChange={handleInputChange}
             />
           </p>
+
           <p className="my-1">
             <span className="text-red-300 font-semibold">Ingredients: </span>
           </p>
@@ -106,10 +154,10 @@ const VendorProductOverlay = ({
             </button>
           </div>
           <div>
-            {boba.ingredients.length > 0 && (
+            {updatedItem.ingredients.length > 0 && (
               <div className="mb-4">
                 <ul>
-                  {boba.ingredients.map((ingredient, index) => (
+                  {updatedItem.ingredients.map((ingredient, index) => (
                     <div key={index} className="flex my-2 ml-5">
                       <button
                         type="button"
@@ -125,9 +173,10 @@ const VendorProductOverlay = ({
               </div>
             )}
           </div>
+
           <div className="flex justify-center mt-4">
             <button
-              onClick={handleClose}
+              onClick={handleSubmit}
               className="bg-[#2C2C2C] text-neutral-100 px-4 py-2 rounded-lg mx-15 cursor-pointer"
             >
               Done
