@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'; 
 import { auth, db } from '../firebase/firebase.ts';
 import { doc, getDoc } from "firebase/firestore";
+import { FirebaseError } from 'firebase/app';
 import { useState } from "react";
 
 const LoginPage = () => {
@@ -27,11 +28,15 @@ const LoginPage = () => {
       } else {
         navigate("/client-home");
       }
-    } catch (error: any) {
-      if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-        setErrorMessage('Incorrect email or password.');
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+          setErrorMessage('Incorrect email or password.');
+        } else {
+          setErrorMessage('An error occurred. Please try again.');
+        }
       } else {
-        setErrorMessage('An error occurred. Please try again.');
+        setErrorMessage('An unexpected error occurred.');
       }
       console.error("Login error:", error);
     }
@@ -45,8 +50,10 @@ const LoginPage = () => {
     try {
       await sendPasswordResetEmail(auth, email);
       setErrorMessage('Password reset email sent. Check your inbox.');
-    } catch (error: any) {
-      console.error("Forgot password error:", error);
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.error("Forgot password error:", error);
+      }
       setErrorMessage('Error sending password reset email.');
     }
   };
@@ -56,16 +63,16 @@ const LoginPage = () => {
       <ClientNavbar />
 
       {/* Form */}
-      <div className="flex-1 flex flex-col justify-center items-center px-[10vw]">
-        <form onSubmit={handleLogin} className="w-full max-w-[40vw] flex flex-col space-y-[2.5vh]">
+      <div className="flex-1 flex flex-col justify-center items-center px-[15vw]">
+        <form onSubmit={handleLogin} className="w-full flex flex-col space-y-[2.5vh]">
           {errorMessage && ( 
-            <div className="text-red-500 text-center mb-4 text-[1vw]">
+            <div className="text-red-500 text-center mb-4">
               {errorMessage}
             </div>
           )}
 
-          <div>
-            <label className="block text-[1.2vw] mb-[1vh]" htmlFor="email">
+          <div className="mb-10">
+            <label className="block mb-3 text-2xl" htmlFor="email">
               Email
             </label>
             <input
@@ -74,12 +81,12 @@ const LoginPage = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-[1vw] py-[1.5vh] bg-white rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black text-[1vw]"
+              className="w-full px-[1vw] py-[1.5vh] bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
             />
           </div>
 
           <div>
-            <label className="block text-[1.2vw] mb-[1vh]" htmlFor="password">
+            <label className="block mb-3 text-2xl" htmlFor="password">
               Password
             </label>
             <input
@@ -88,30 +95,33 @@ const LoginPage = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-[1vw] py-[1.5vh] bg-white rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black text-[1vw]"
+              className="w-full px-[1vw] py-[1.5vh] bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
             />
           </div>
 
-          <div className="flex justify-between w-full max-w-[40vw] mt-[2vh] text-[1vw]">
+          <div className="flex justify-between w-full mt-[2vh]">
             <button 
               type="button"
               onClick={handleForgotPassword} 
-              className="underline text-purple-800 cursor-pointer bg-transparent border-none p-0 m-0"
+              className="underline text-purple-800 cursor-pointer bg-transparent border-none p-0 m-0 text-lg"
             >
               Forgot password?
             </button>
 
-            <a onClick={() => navigate("/signup")} className="underline text-black cursor-pointer">
+            <a onClick={() => navigate("/signup")} className="underline text-black cursor-pointer text-lg">
               Sign Up
             </a>
           </div>
 
-          <button
-            type="submit"
-            className="bg-black text-white py-[1.5vh] rounded-md text-[1.2vw] hover:bg-gray-800"
-          >
-            Sign In
-          </button>
+          <span className="flex justify-center">
+            <button
+              type="submit"
+              className="button-black text-white py-[1.5vh] rounded-lg hover:bg-gray-800 text-2xl w-2/3 cursor-pointer"
+            >
+              Sign In
+            </button>
+          </span>
+          
         </form>
 
       </div>

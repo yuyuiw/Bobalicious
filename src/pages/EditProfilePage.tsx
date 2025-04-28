@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import ClientNavbar from '../components/ClientNavbar';
+import { auth } from "../firebase/firebase";
+import { useNavigate } from "react-router";
 
 interface EditProfileProps {
   name: string;
@@ -13,55 +16,62 @@ const EditProfilePage: React.FC<EditProfileProps> = ({
 }) => {
   const [newName, setNewName] = useState(name);
   const [newAddress, setNewAddress] = useState(address);
+    const navigate = useNavigate(); 
+  
 
   return (
     <div className="text-center min-h-screen flex flex-col">
- 
-        {/*pretend navbar UI delete when actual navbar is made*/}
-        <div className="bg-[#CBE3BA]">
-            <h1 className="font-[Lemonada] text-white text-4xl pt-[3vh] font-normal">Bobalicious</h1>
+        <ClientNavbar />
 
-            <div className="flex flex-row justify-center font-normal text-2xl pt-[1vh]">
-                <p className="underline pl-[1vw] pr-[1vw]">Profile</p>
-                <p>|</p>
-                <p className="underline pl-[1vw] pr-[1vw]">Cart</p>
-                <p>|</p>
-                <p className="underline pl-[1vw] pr-[1vw]">Menu</p>
-                <p>|</p>
-                <p className="underline pl-[1vw] pr-[1vw]">Home</p>  
-            </div>
-        </div>
+        <div className="flex justify-end items-center px-8 py-4">
+                    <button
+                    onClick={async () => {
+                    try {
+                        await auth.signOut();
+                        navigate("/");
+                        setTimeout(() => {
+                            navigate("/");
+                        }, 500);
+                    } catch (error) {
+                        console.error("Error signing out:", error);
+                    }
+                    }}
+                    className="button-black hover:bg-red-600 text-white text-lg font-medium px-6 py-3 rounded-lg transition cursor-pointer"
+                    >
+                        Sign Out
+                    </button>
+                </div>
 
         {/*Main page content*/}
-        <div className="bg-[#F7DCE3] min-h-screen">
-            <h1 className="font-bold text-4xl pt-[5vh] italic pb-[2vh]">Profile</h1>
+        <div>
+            <h1 className="font-bold text-4xl italic pb-3">Profile</h1>
 
-            <div className="w-[90%] pt-[5vh] mx-auto p-8 text-left text-2xl space-y-8">
+            <div className="flex flex-col items-center w-full p-8 text-left text-2xl space-y-8">
                 {/*edit info*/}
-                <label className="block font-normal text-2xl text-[#1E1E1E]">
+                <label className="block font-normal w-100 text-2xl text-[#1E1E1E]">
                     Name
                     <input
                     type="text"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    className="bg-white w-full border border-[#D9D9D9] rounded-md p-3 text-xl focus:outline-none focus:ring-2 focus:ring-[#CBE3BA]"
+                    className="bg-white w-full border border-[#D9D9D9] rounded-md p-3 mt-3 text-xl focus:outline-none focus:ring-2 focus:ring-[#CBE3BA]"
                     />
                 </label>
 
-                <label className="block font-normal text-2xl text-[#1E1E1E]">
+                <label className="block font-normal w-100 text-2xl text-[#1E1E1E]">
                     Delivery Address
                     <input
                         type="text"
                         value={newAddress}
                         onChange={(e) => setNewAddress(e.target.value)}
-                        className="bg-white w-full border border-[#D9D9D9] rounded-md p-3 text-xl focus:outline-none focus:ring-2 focus:ring-[#CBE3BA]"
+                        className="bg-white w-full border border-[#D9D9D9] rounded-md p-3 mt-3 text-xl focus:outline-none focus:ring-2 focus:ring-[#CBE3BA]"
                     />
                 </label>
             
                 </div>
                 
-                <div className="pt-[10vh]">
-                    <button className="bg-[#2C2C2C] text-white w-[315px] h-[71px] rounded-[20px] text-base font-medium mx-auto mt-6 shadow-md hover:bg-[#1f1f1f] transition self-center"
+                <div>
+                    <button className="bg-[#2C2C2C] text-white w-70 h-20 rounded-xl text-base text-xl font-medium mx-auto mt-6 shadow-md hover:bg-[#1f1f1f] transition self-center"
                     onClick={() => onSave(newName, newAddress)}>
                     Save Changes
                     </button>

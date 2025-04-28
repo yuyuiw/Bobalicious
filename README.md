@@ -2,6 +2,10 @@
 
 This is a mock E-Commerce platform for College Park's new boba shop, Bobalicious!
 
+### To run the application:
+Open terminal and enter `npm install`. Next, enter `npm run dev` to start application.
+
+
 ### What you can do on this web application:
 - Sign up or log in as: **Client** or **Vendor**
 

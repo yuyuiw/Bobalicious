@@ -10,7 +10,7 @@ interface AddItemOverlayProps {
   onItemAdded: (newItem: Boba) => void;
 }
 
-export const AddItemOverlay = ({ onClose, onItemAdded }: AddItemOverlayProps) => {
+const AddItemOverlay = ({ onClose, onItemAdded }: AddItemOverlayProps) => {
   const [newItem, setNewItem] = useState<Omit<Boba, 'id'>>({
     name: '',
     imageURL: '',

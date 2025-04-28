@@ -52,9 +52,9 @@ const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
                 <img src={boba.imageURL} className="object-cover rounded-lg w-60 h-60 mx-auto" />
 
                 <div className="my-5 mx-4 text-left">
-                    <p className="my-1"><span className="text-red-300 font-semibold">price: </span>${boba.price}</p>
-                    <p className="my-1"><span className="text-red-300 font-semibold">description: </span>{boba.description}</p>
-                    <p className="my-1"><span className="text-red-300 font-semibold">ingredients: </span>
+                    <p className="my-1"><span className="text-red-300 font-semibold">Price: </span>${boba.price}</p>
+                    <p className="my-1"><span className="text-red-300 font-semibold">Description: </span>{boba.description}</p>
+                    <p className="my-1"><span className="text-red-300 font-semibold">Ingredients: </span>
                         {boba.ingredients.map((ingredient, index) => (
                         <span key = {index} className = "flex gap-1">
                             - {ingredient}
@@ -64,11 +64,11 @@ const ProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
                 </div>
 
                 <div className="flex row justify-center items-center">
-                    <p className="m-5"><span className="text-red-300 font-bold">qty: </span>{quantity}</p>
-                    <Button onClick={increaseQty} sx={{ backgroundColor: '#F7DCE3', color: 'black', margin: '2px' }} variant="contained"><AddIcon /></Button>
-                    <Button onClick={decreaseQty} sx={{ backgroundColor: '#F7DCE3', color: 'black', margin: '2px' }} variant="contained"><RemoveIcon /></Button>
+                    <p className="mr-5"><span className="text-red-300 font-bold">Qty: </span>{quantity}</p>
+                    <Button onClick={increaseQty} sx={{ backgroundColor: '#F7DCE3', color: 'black', margin: '5px' }} variant="contained"><AddIcon /></Button>
+                    <Button onClick={decreaseQty} sx={{ backgroundColor: '#F7DCE3', color: 'black', margin: '5px' }} variant="contained"><RemoveIcon /></Button>
                 </div>
-                <div className="flex justify-center m-1">
+                <div className="flex justify-center mt-5">
                     <Button onClick={handleAddToCart} sx={{ backgroundColor: 'black', color: '#F7DCE3' }} variant="contained">Add to cart</Button>
                 </div>
             </div>  
