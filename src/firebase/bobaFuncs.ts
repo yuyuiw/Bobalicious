@@ -1,4 +1,4 @@
-import { collection, Firestore, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore";
+import { collection, Firestore, getDocs, addDoc, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { Boba } from "../types/boba";
 
 export async function getBoba(db: Firestore): Promise<Boba[]> {
@@ -29,6 +29,17 @@ export async function deleteBoba(db: Firestore, id: string) {
         console.log("Document deleted with ID: ", id);
       } catch (e) {
         console.error("Error deleting document: ", e);
+        throw e;
+      }
+}
+
+export async function updateBoba(db: Firestore, id: string, item: Partial<Boba>) {
+    try {
+        const bobaRef = doc(db, 'boba', id);
+        await updateDoc(bobaRef, item);
+        console.log("Document updated with ID: ", id);
+      } catch (e) {
+        console.error("Error updating document: ", e);
         throw e;
       }
 }
