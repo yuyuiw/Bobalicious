@@ -3,7 +3,7 @@ import EditProfilePage from "../pages/EditProfilePage";
 import Navbar from "../components/ClientNavbar";
 import { auth } from "../firebase/firebase";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 
 const ClientProfilePage: React.FC = () => {
@@ -71,7 +71,6 @@ const ClientProfilePage: React.FC = () => {
         onClick={async () => {
         try {
             await auth.signOut();
-            console.log("Logout successful ✅");
             navigate("/");
             setTimeout(() => {
                 navigate("/");
