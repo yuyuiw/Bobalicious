@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Navbar from '../components/ClientNavbar';
+import { createUserWithEmailAndPassword } from 'firebase/auth'; 
+import { auth, db } from '../firebase/firebase.ts'; 
+import { doc, setDoc } from 'firebase/firestore'; 
 
 const SignupPage: React.FC = () => {
   const [role, setRole] = useState('Vendor');
@@ -10,10 +13,28 @@ const SignupPage: React.FC = () => {
   // Remove this line if not needed after implementing firebase auth
   const navigate = useNavigate(); 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => { 
     e.preventDefault();
-    // TODO: your signup logic here
-    console.log({ role, email, password });
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Save role to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        role: role,
+        email: email
+      });
+
+      console.log({ role, email, password });
+      
+      if (role === "Vendor") {
+        navigate("/vendor-home");
+      } else {
+        navigate("/client-home");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
   };
 
   return (
@@ -64,7 +85,7 @@ const SignupPage: React.FC = () => {
         <button 
           type="submit" 
           className="w-full p-3 text-2xl bg-black button-black text-white rounded-md cursor-pointer transition duration-200 ease-in-out hover:opacity-90"
-          onClick={() => navigate('/client-home')}
+          onClick={() => {}} 
         >
           {/* Adjust/change onClick function above to deal with firebase auth */}
           Sign Up
