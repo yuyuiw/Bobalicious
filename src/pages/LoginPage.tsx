@@ -116,7 +116,7 @@ const LoginPage = () => {
           <span className="flex justify-center">
             <button
               type="submit"
-              className="button-black text-white py-[1.5vh] rounded-lg hover:bg-gray-800 text-2xl w-2/3"
+              className="button-black text-white py-[1.5vh] rounded-lg hover:bg-gray-800 text-2xl w-2/3 cursor-pointer"
             >
               Sign In
             </button>
