@@ -1,6 +1,6 @@
 import { Boba } from "../types/boba";
 import { db } from "../firebase/firebase";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateBoba } from "../firebase/bobaFuncs";
 
 // Material UI
@@ -13,21 +13,29 @@ interface ProductOverlayProps {
   handleClose: () => void;
 }
 
-const VendorProductOverlay = ({
-  open,
-  boba,
-  handleClose,
-}: ProductOverlayProps) => {
-  if (!boba) return null;
-
+const VendorProductOverlay = ({ open, boba, handleClose }: ProductOverlayProps) => {
   const [currentIngredient, setCurrentIngredient] = useState("");
   const [updatedItem, setUpdatedItem] = useState<Omit<Boba, "id">>({
-    name: boba.name,
-    price: boba.price,
-    description: boba.description,
-    imageURL: boba.imageURL,
-    ingredients: boba.ingredients,
+    name: "",
+    price: "",
+    description: "",
+    imageURL: "",
+    ingredients: []
   });
+
+  useEffect(() => {
+    if (boba) {
+      setUpdatedItem({
+        name: boba.name,
+        price: boba.price,
+        description: boba.description,
+        imageURL: boba.imageURL,
+        ingredients: boba.ingredients
+      });
+    }
+  }, [boba]);
+
+  if (!boba) return null;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -75,16 +83,16 @@ const VendorProductOverlay = ({
       onClose={handleClose}
       className="flex justify-center items-center"
     >
-      <div className="bg-stone-100 min-w-120 max-w-[80%] p-8 text-black rounded-md">
+      <div className="bg-stone-100 min-w-120 max-w-[80%] px-8 pt-8 text-black rounded-md">
         <div className="flex justify-self-end">
           <CloseIcon onClick={handleClose} className="cursor-pointer" />
         </div>
 
-        <h1 className="text-2xl font-bold text-center mb-4">
+        <h1 className="text-2xl font-bold text-center my-4 mx-4">
           <span className="text-red-300 font-semibold">Item Name: </span>
           <input
             type="Item Name: "
-            className="border border-solid border-neutral-200 rounded-md bg-white p-2 w-1/3"
+            className="border border-solid border-neutral-200 rounded-md bg-white px-2 max-w-60"
             placeholder={boba.name}
             onChange={handleInputChange}
             name ="name"
@@ -98,50 +106,51 @@ const VendorProductOverlay = ({
         />
 
         <div className="my-5 mx-4 text-left">
-          <p className="my-1">
-            <span className="text-red-300 font-semibold">Price: </span>$
+          <div className="my-2 flex items-center">
+            <span className="text-red-300 font-semibold flex">Price: </span>
+            <p className="ml-2">$</p>
             <input
               type="Price: "
-              className="border border-solid border-neutral-200 rounded-md bg-white p-2 w-1/3"
+              className="border border-solid border-neutral-200 rounded-md bg-white px-2 py-1 w-20 ml-1"
               placeholder={boba.price}
               name ="price"
               value={updatedItem.price}
               onChange={handleInputChange}
             />
-          </p>
+          </div>
 
-          <p className="my-1">
+          <div className="my-2 flex items-center">
             <span className="text-red-300 font-semibold">Description: </span>
             <input
               type="Description: "
-              className="border border-solid border-neutral-200 rounded-md bg-white p-2 w-1/3"
+              className="border border-solid border-neutral-200 rounded-md bg-white px-2 py-1 grow ml-1"
               placeholder={boba.description}
               name ="description"
               value={updatedItem.description}
               onChange={handleInputChange}
             />
-          </p>
+          </div>
 
-          <p className="my-1">
+          <div className="my-2 flex items-center">
             <span className="text-red-300 font-semibold">Image URL: </span>
             <input
               type="Image URL: "
               name="imageURL"
               value={updatedItem.imageURL}
-              className="border border-solid border-neutral-200 rounded-md bg-white p-2 w-1/3"
+              className="border border-solid border-neutral-200 rounded-md bg-white px-2 py-1 grow ml-1"
               placeholder={boba.imageURL}
               onChange={handleInputChange}
             />
-          </p>
+          </div>
 
-          <p className="my-1">
+          <div className="my-1">
             <span className="text-red-300 font-semibold">Ingredients: </span>
-          </p>
+          </div>
           <div className="flex gap-2 mb-2">
             <input
               type="text"
               placeholder="Add ingredient"
-              className="flex-1 border rounded-lg p-2 border-gray-300"
+              className="flex-1 border rounded-lg px-2 border-gray-300"
               value={currentIngredient}
               onChange={(e) => setCurrentIngredient(e.target.value)}
             />
@@ -177,7 +186,7 @@ const VendorProductOverlay = ({
           <div className="flex justify-center mt-4">
             <button
               onClick={handleSubmit}
-              className="bg-[#2C2C2C] text-neutral-100 px-4 py-2 rounded-lg mx-15 cursor-pointer"
+              className="bg-[#2C2C2C] text-neutral-100 px-4 py-2 mb-3 rounded-lg cursor-pointer"
             >
               Done
             </button>
