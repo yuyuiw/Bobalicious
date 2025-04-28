@@ -12,7 +12,7 @@ const CartPage: React.FC = () => {
     <div>
       <Navbar />
 
-      <div className="min-h-screen flex flex-col items-center">
+      <div className="flex flex-col items-center">
         {!checkedOut ? (
           <div className="mt-10 w-200">
             <h2 className="text-3xl font-semibold mb-4 italic text-center">Shopping Cart</h2>
@@ -31,21 +31,20 @@ const CartPage: React.FC = () => {
                 <img src={item.boba.imageURL} alt={item.boba.name} className="w-24 h-24 me-5 object-cover"/>
                 
                 <div className="flex flex-col">
-                    <h2 className="text-md text-3xl mb-3">{item.boba.name}</h2>
-                    <p>
-                    <text className="text-red-300 font-semibold">Price:</text> ${item.boba.price}
-                    </p>
-                    <p>
-                    <text className="text-red-300 font-semibold">Description:</text> {item.boba.description}
+                  <h2 className="text-md text-3xl mb-3">{item.boba.name}</h2>
+                  <p>
+                  <text className="text-red-300 font-semibold">Price:</text> ${item.boba.price}
+                  </p>
+                  <p>
+                  <text className="text-red-300 font-semibold">Description:</text> {item.boba.description}
                     </p>
                 </div>
               </div>
             ))
-          ))}
-          </div>
-          <div className="flex justify-center mt-10 mb-10 w-full">
+            ))}
+
             <button
-              className={`mt-6 w-60 h-15 py-3 rounded mt-20 mb-10
+              className={`mb-10 mt-5 w-60 h-15 py-3 rounded self-center
                 ${cart.length === 0 ? "bg-[#2C2C2C] opacity-90 text-white cursor-not-allowed" : "button-black text-white cursor-pointer"}`}
               disabled={cart.length === 0}
               onClick={() => {
