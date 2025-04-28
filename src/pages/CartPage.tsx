@@ -28,14 +28,15 @@ const CartPage: React.FC = () => {
             {cart.map((item, index) => (
               Array.from({ length: item.quantity }).map((_, i) => (
               <div key = {`${index}-${i}`} className="bg-white p-4 shadow-2xl rounded flex flex-row">
-                <img src={item.boba.imageURL} alt={item.boba.name} className="w-24 h-24 x me-5"/>
+                <img src={item.boba.imageURL} alt={item.boba.name} className="w-24 h-24 me-5 object-cover"/>
+                
                 <div className="flex flex-col">
-                    <h3 className="text-md text-3xl mb-5">{item.boba.name}</h3>
+                    <h2 className="text-md text-3xl mb-3">{item.boba.name}</h2>
                     <p>
-                    <text className="text-red-600 font-semibold italic">Price:</text> ${item.boba.price}
+                    <text className="text-red-300 font-semibold">Price:</text> ${item.boba.price}
                     </p>
                     <p>
-                    <text className="text-red-600 font-semibold italic">Description:</text> {item.boba.description}
+                    <text className="text-red-300 font-semibold">Description:</text> {item.boba.description}
                     </p>
                 </div>
               </div>
