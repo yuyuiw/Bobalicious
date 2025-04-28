@@ -18,7 +18,7 @@ const CartPage: React.FC = () => {
             <h2 className="text-3xl font-semibold mb-4 italic text-center">Shopping Cart</h2>
             <div className="mb-4">
               <label className="block mb-2">Delivery Type:</label>
-              <select className="w-50 p-2 border border-gray-300 rounded bg-white cursor-pointer">
+              <select className="w-50 p-2 border border-gray-300 rounded-lg bg-white cursor-pointer">
                 <option>In-Store Pick Up</option>
                 <option>Delivery</option>
               </select>
@@ -27,7 +27,7 @@ const CartPage: React.FC = () => {
           <div className="flex flex-col gap-4">
             {cart.map((item, index) => (
               Array.from({ length: item.quantity }).map((_, i) => (
-              <div key = {`${index}-${i}`} className="bg-white p-4 shadow-2xl rounded flex flex-row">
+              <div key = {`${index}-${i}`} className="bg-white p-4 shadow-2xl rounded-md flex flex-row">
                 <img src={item.boba.imageURL} alt={item.boba.name} className="w-24 h-24 me-5 object-cover"/>
                 
                 <div className="flex flex-col">
@@ -45,8 +45,8 @@ const CartPage: React.FC = () => {
           </div>
           <div className="flex justify-center mt-10 mb-10 w-full">
             <button
-              className={`mt-6 w-60 h-15 py-3 rounded cursor-pointer mt-20 mb-10
-                ${cart.length === 0 ? "bg-gray-400 text-gray-700 cursor-not-allowed" : "bg-gray-800 text-white"}`}
+              className={`mt-6 w-60 h-15 py-3 rounded mt-20 mb-10
+                ${cart.length === 0 ? "bg-[#2C2C2C] opacity-90 text-white cursor-not-allowed" : "button-black text-white cursor-pointer"}`}
               disabled={cart.length === 0}
               onClick={() => {
                 if (cart.length > 0) {
@@ -62,7 +62,7 @@ const CartPage: React.FC = () => {
         ) : (
           <div className="mt-20 flex flex-col items-center">
             <h2 className="text-xl mb-6">Thank you for your purchase.</h2>
-            <p className="mt-6 w-full bg-gray-800 text-white py-3 rounded text-center cursor-pointer" onClick={() => navigate("/")}>
+            <p className="mt-6 w-full button-black text-white py-3 rounded text-center cursor-pointer" onClick={() => navigate("/")}>
               Sign Out
             </p>
           </div>
