@@ -66,7 +66,7 @@ const ClientProfilePage: React.FC = () => {
         <Navbar />
 
         {/*Main page content*/}
-        <div className="flex justify-end items-center px-8 py-4">
+        <div className="flex justify-end items-center px-8 pt-8">
             <button
             onClick={async () => {
             try {
@@ -79,13 +79,13 @@ const ClientProfilePage: React.FC = () => {
                 console.error("Error signing out:", error);
             }
             }}
-            className="button-black hover:bg-red-600 text-white text-lg font-medium px-6 py-3 rounded-lg transition cursor-pointer"
+            className="button-black hover:bg-red-600 text-white text-lg font-medium px-10 py-5 rounded-lg transition cursor-pointer"
             >
                 Sign Out
             </button>
         </div>
         <div className="flex flex-col items-center">
-            <h1 className="font-bold text-4xl italic pb-[2vh]">Profile</h1>
+            <h1 className="font-bold text-3xl italic pb-[2vh]">Profile</h1>
 
             {/*Info box*/}
             <div className="bg-white min-w-1/2 p-4 shadow-md my-4 text-3xl">
